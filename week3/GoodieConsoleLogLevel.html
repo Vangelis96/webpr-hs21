@@ -26,7 +26,7 @@
     //     console.debug("debug", longRunning("debug"));
     // }
 
-    /* constants */
+    /* constants  */
     const LEVEL_NONE    = -1;
     const LEVEL_ERROR   =  0;
     const LEVEL_WARN    =  1;
@@ -35,6 +35,12 @@
     const LEVEL_DEBUG   =  4;
     let logLevel = LEVEL_LOG;
 
+    // strict version (not working as desired, yet)
+    const error = getArgs => { if (logLevel >= LEVEL_ERROR) console.error(getArgs()); }
+    const warn  = getArgs => { if (logLevel >= LEVEL_WARN)  console.warn (getArgs()); }
+    const info  = getArgs => { if (logLevel >= LEVEL_INFO)  console.info (getArgs()); }
+    const log   = getArgs => { if (logLevel >= LEVEL_LOG)   console.log  (getArgs()); }
+    const debug = getArgs => { if (logLevel >= LEVEL_DEBUG) console.debug(getArgs()); }
 
 /*    // strict version (not working as desired, yet) */
     const error = getArgs => { if (logLevel >= LEVEL_ERROR) console.error(getArgs()); }
@@ -44,11 +50,11 @@
     const debug = getArgs => { if (logLevel >= LEVEL_DEBUG) console.debug(getArgs()); }
 
     const logAll = () => {
-        error( () => ["error", longRunning("error")]);
-        warn ( () => ["warn",  longRunning("warn") ]);
-        info ( () => ["info",  longRunning("info") ]);
-        log  ( () => ["log",   longRunning("log")  ]);
-        debug( () => ["debug", longRunning("debug")]);
+        error(() => ["error", longRunning("error")]);
+        warn (() => ["warn",  longRunning("warn") ]);
+        info (() => ["info",  longRunning("info") ]);
+        log  (() => ["log",   longRunning("log")  ]);
+        debug(() => ["debug", longRunning("debug")]);
     }
 
 
