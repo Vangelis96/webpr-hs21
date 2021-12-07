@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="out"></div>
+
+<script>
+    // Example
+
+    // fetch('https://jsonplaceholder.typicode.com/todos/1')
+    //     .then( resp => resp.json() )
+    //     .then( todo => todo.title )
+    //     .then( title => out.textContent = title);
+
+    const doit = async url => {
+        const resp = await fetch(url);
+        const todo = await resp.json();
+        out.textContent = "title is: " + todo.title;
+    }
+    doit('https://jsonplaceholder.typicode.com/todos/1')
+
+    // const idPromise = x => new Promise(resolve => resolve(x));
+
+    // document.writeln(idPromise(1));
+
+    // const writer = x => {
+    //     document.writeln(x);
+    //     return idPromise(x);
+    // };
+    // const filterEven = n => { if (n % 2 === 0) return n; else throw Error("not even") };
+    // const inc = n => n + 1;
+    // const filterEven = n => n % 2 === 0 ? n : undefined;
+
+    // idPromise(1)
+    // .then(it => { document.writeln(it); return it })
+    // .then(it => document.writeln(it));
+    // .then(writer)
+    // .then(it => document.writeln(it));
+        // .then(it => it + 1)
+        // .then(inc)
+        // .then(writer);
+        // .then(filterEven)
+        // .then(writer);
+        // .catch(err => {});
+
+    // const idPromise = x => new Promise(resolve => resolve(x));
+    // const failPromise = err => new Promise((resolve, reject) => reject(err));
+
+    // const inc = n => idPromise(n + 1);
+    // const filterEven = n => n % 2 === 0 ? idPromise(n): failPromise("not even");
+
+    // const writer = x => {
+    //     document.writeln(x);
+    //     return idPromise(x);
+    // };
+    // const foo = async i => {
+    //     let x = await idPromise(i);
+    //     // document.writeln(x);
+    //     while (x < 4) {
+    //         x = await filterEven(x);
+    //         x = await writer(x);
+    //         x = await inc(x);
+    //     }
+    // };
+    // foo(1);
+
+    const NullSafe = x => {
+        const isNullSafe = y => y && y.then;
+        const maywrap    = y => isNullSafe(y) ? y : NullSafe(y); // if y is not NullSafe yet, make it so
+        return {
+        then: fn => x ? maywrap(fn(x)) : NullSafe(x)
+        }
+    };
+
+    NullSafe(1).then(console.log);                   // will call the log
+    NullSafe(null).then(console.log);                // will not call the log
+    NullSafe(2).then( x => null).then(console.log);  // will not call the log
+</script>
+
+</body>
+</html>

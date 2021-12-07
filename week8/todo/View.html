@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+    <style>
+        body {
+            background: burlywood;
+            font-family: "Helvetica Neue", "sans-serif";
+        }
+        div {
+            padding-left: 1em;
+        }
+        td label {
+            display: none;
+        }
+    </style>
+</head>
+<body onload="startTodo()">
+
+<button onclick="addTodo()">Add Todo</button>
+
+<table>
+    <thead></thead>
+    <tbody id="todoContainer">
+        <tr>
+            <td>
+                <label for="todo0">First Todo:</label>
+                <input type="text" name="todo0" id="todo0" value="Mein erster Eintrag">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div>Number of Tasks: <span id="numberOfTasks">0</span></div>
+<div>Open Tasks: <span id="openTasks">0</span></div>
+
+
+<script src="todo.js"></script>
+
+</body>
+
+</html>

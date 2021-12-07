@@ -11,6 +11,7 @@ function start() {
     // const f = x => eval(userFunction.value);
     userFunction.onchange = _ => display(canvas, Function("x", "return " + userFunction.value));
     display(canvas, Function("x", "return " + userFunction.value));
+
 }
 
 function display(canvas, f) {

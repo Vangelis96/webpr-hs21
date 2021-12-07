@@ -1,0 +1,67 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+
+            // Q19
+            // const Observable = value => {
+            //     const listeners = [];
+            //     return {
+            //         onChange: callback => listeners.push(callback),
+            //         getValue: () => value,
+            //         setValue: val => {
+            //             if (value === val) return;
+            //             value = val;
+            //             listeners.forEach(l => l(val));
+            //         }
+            //     }
+            // };
+
+            // const color = Observable('white');
+            // let updateCount = 0;
+            // // let observed = null;
+            // // let observed = color.getValue();
+            // // color.onChange(val => observed = val);
+            // // const updateListener = val => updateCount++;
+            // color.onChange(_ => updateCount++);
+
+            // color.setValue('black');
+            // // color.setValue('white');
+            // // color.value = 'black';
+
+            // document.writeln(updateCount === 1);
+
+            // Q20a
+            const Observable = value => {
+                const listeners = [];
+                return {
+                    onChange: callback => {
+                        listeners.push(callback);
+                        callback(value, value);
+                    },
+                    getValue: () => value,
+                    setValue: newValue => {
+                        if (value === newValue) return;
+                        const oldValue = value;
+                        value = newValue;
+                        listeners.forEach(callback => callback(value, oldValue));
+                    }
+                }
+            };
+
+            let sum = 0;
+            const trackable = Observable(0);
+
+            trackable.onChange(v => {
+                sum += v;
+            });
+
+            trackable.setValue(3);
+            trackable.setValue(2);
+            trackable.setValue(1);
+            
+            document.writeln(trackable.getValue() === 1);
+            document.writeln(sum === 3 + 2 + 1);
+        </script>
+    </body>
+</html>
